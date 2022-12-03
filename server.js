@@ -95,6 +95,30 @@ server.post('/items', function (req, res) {
     res.sendStatus(404);
   }
 });
+server.post('/login', function (req, res) {
+  const { body } = req;
+  const { email, password } = body;
+
+  if (body) {
+    const user = db.get('users').find({ email }).value();
+
+    if (password === user.password) {
+      const { id, name, role, permissions } = user;
+
+      res.setHeader('Content-Type', 'application/json');
+      res.end(JSON.stringify({ 
+        id,
+        name,
+        role,
+        permissions,
+        token: 'eyJhbGciOiJIUzI1NiJ9',
+      }));
+    }
+  }
+  else {
+    res.sendStatus(404);
+  }
+});
 
 // PATCH requests.
 server.patch('/categories/:categoryId', function (req, res) {

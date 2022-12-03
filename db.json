@@ -78,5 +78,32 @@
         }
       ]
     }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "name": "Mohammed",
+      "email": "user@elmenus.com",
+      "password": "12345678",
+      "role": "user",
+      "permissions": ["view_menu"]
+    },
+    {
+      "id": "2",
+      "name": "Ahmed",
+      "email": "admin@elmenus.com",
+      "password": "12345678",
+      "role": "admin",
+      "permissions": [
+        "view_menu",
+        "view_adminPage",
+        "add_category",
+        "edit_category",
+        "delete_category",
+        "add_item",
+        "edit_item",
+        "delete_item"
+      ]
+    }
   ]
 }
