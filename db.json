@@ -77,6 +77,12 @@
           "price": 34.834
         }
       ]
+    },
+    {
+      "id": "c74204a0-7394-11ed-8155-2fbd3c1e3249",
+      "name": "Desserts",
+      "description": "This is new Category",
+      "items": []
     }
   ],
   "users": [
@@ -86,7 +92,9 @@
       "email": "user@elmenus.com",
       "password": "12345678",
       "role": "user",
-      "permissions": ["view_menu"]
+      "permissions": [
+        "view_menu"
+      ]
     },
     {
       "id": "2",

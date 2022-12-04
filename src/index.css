@@ -1,0 +1,7 @@
+.ui.menu:not(.vertical) .item>.button a {
+  color: #fff;
+}
+.field div,
+.required {
+  color: red;
+}

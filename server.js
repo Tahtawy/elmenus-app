@@ -102,7 +102,7 @@ server.post('/login', function (req, res) {
   if (body) {
     const user = db.get('users').find({ email }).value();
 
-    if (password === user.password) {
+    if (user && password === user.password) {
       const { id, name, role, permissions } = user;
 
       res.setHeader('Content-Type', 'application/json');
@@ -114,6 +114,7 @@ server.post('/login', function (req, res) {
         token: 'eyJhbGciOiJIUzI1NiJ9',
       }));
     }
+    res.sendStatus(422);
   }
   else {
     res.sendStatus(404);
