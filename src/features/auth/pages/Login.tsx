@@ -4,7 +4,7 @@ import { LoginAPIBody } from '../AuthModels';
 import { Formik, ErrorMessage } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import { initialLoginValue } from '../AuthConstants';
-import { useAppDispatch } from '../../../features/core/hooks/redux';
+import { useAppDispatch } from '../../shared/hooks';
 import { Button, Form, Grid, Header, Image, Segment } from 'semantic-ui-react';
 
 export const Login: FC = () => {

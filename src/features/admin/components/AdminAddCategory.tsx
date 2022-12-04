@@ -1,12 +1,13 @@
 import { FC } from 'react';
+import { listCategory } from '../../shared/SharedAPI';
 import { addCategory } from '../AdminAPI';
 import { Formik, ErrorMessage } from 'formik';
 import { AddCategoryAPIBody } from '../AdminModels';
 import { initialAddCategory } from '../AdminConstants';
-import { useAppDispatch } from '../../../features/core/hooks/redux';
+import { useAppDispatch } from '../../shared/hooks';
 import { Button, Form, Header, Divider, Segment } from 'semantic-ui-react';
 
-export const AddCategory: FC = () => {
+export const AdminAddCategory: FC = () => {
   const dispatch = useAppDispatch();
 
   const validateAddCategory = (values: AddCategoryAPIBody) => {
@@ -23,7 +24,8 @@ export const AddCategory: FC = () => {
   const onSubmitAddCategory = async (values: AddCategoryAPIBody, { resetForm }: any) => {
     try {
       await dispatch(addCategory(values));
-      resetForm({ values: initialAddCategory })
+      resetForm({ values: initialAddCategory });
+      await dispatch(listCategory());
     } catch(error) {
       console.log(error);
     }
@@ -64,7 +66,6 @@ export const AddCategory: FC = () => {
             <Form.Field>
               <label>description <span className='required'>*</span></label>
               <Form.TextArea
-                fluid
                 name="description"
                 placeholder='Description'
                 onChange={handleChange}

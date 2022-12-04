@@ -72,7 +72,7 @@ server.post('/categories', function (req, res) {
     if (!body.items)
       body.items = [];
 
-    db.get('categories').push({
+    db.get('categories').unshift({
       id: uuidv1(),
       ...body,
     }).write();
@@ -86,7 +86,7 @@ server.post('/items', function (req, res) {
   const { categoryId, ...rest } = body;
 
   if (body) {
-    db.get('categories').find({ id: categoryId }).get('items').push({
+    db.get('categories').find({ id: categoryId }).get('items').unshift({
       id: uuidv1(),
       ...rest
     }).write();

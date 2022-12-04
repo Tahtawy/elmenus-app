@@ -5,3 +5,7 @@
 .required {
   color: red;
 }
+.price .ui.inverted.orange.segment {
+  padding: 0.5em;
+  font-weight: 600;
+}

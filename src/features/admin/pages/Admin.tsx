@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { Container, Grid } from 'semantic-ui-react';
-import {  AddCategory } from '../components/AddCategory';
+import {  AdminAddCategory } from '../components/AdminAddCategory';
+import {  AdminMenuData } from '../components/AdminMenuData';
 
 export const Admin: FC = () => {
   return (
@@ -8,10 +9,10 @@ export const Admin: FC = () => {
       <Grid>
         <Grid.Row>
           <Grid.Column width={5}>
-            <AddCategory />
+            <AdminAddCategory />
           </Grid.Column>
           <Grid.Column width={11}>
-            <p>right</p>
+            <AdminMenuData />
           </Grid.Column>
         </Grid.Row>
       </Grid>
