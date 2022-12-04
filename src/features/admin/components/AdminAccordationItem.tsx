@@ -1,4 +1,6 @@
 import { FC, ReactNode, useState } from "react";
+import { setModalData } from "../AdminSlice";
+import { useAppDispatch } from "../../shared/hooks";
 import { Accordion, Icon, Segment, Divider, Button, Grid } from 'semantic-ui-react';
 
 interface AdditionalContentProps {
@@ -6,10 +8,12 @@ interface AdditionalContentProps {
 }
 
 interface AdminAccordationItemProps {
+  categoryId: string;
+  itemId?: string;
   name: string;
   description: string;
   index: number;
-  for: 'category' | 'item';
+  type: 'category' | 'item';
   children?: ReactNode;
   price?: number | null;
 }
@@ -23,12 +27,16 @@ const AdditionalContent: FC<AdditionalContentProps> = ({ children }) => {
 }
 
 const AdminAccordationItem: FC<AdminAccordationItemProps> & CompoundComponetsProps = ({
+  categoryId,
+  itemId,
   name,
   description,
+  type,
   index,
   children,
   price = null
 }) => {
+  const dispatch = useAppDispatch();
   const [activeIndex, setActiveIndex] = useState<number>(0);
 
   const handleClick = (e: any, titleProps: any) => {
@@ -37,6 +45,18 @@ const AdminAccordationItem: FC<AdminAccordationItemProps> & CompoundComponetsPro
 
     setActiveIndex(newIndex);
   };
+
+  const onOpenDeleteModal = (e: any) => {
+    e.stopPropagation();
+    console.log(categoryId);
+    console.log(itemId);
+    dispatch(setModalData({
+      isOpen: true,
+      action: 'delete',
+      data: {categoryId, itemId},
+      type
+    }))
+  }
 
   return (
     <>
@@ -54,7 +74,12 @@ const AdminAccordationItem: FC<AdminAccordationItemProps> & CompoundComponetsPro
             <Button.Group floated="right">
               <Button positive><Icon name="pencil"></Icon></Button>
               <Button.Or />
-              <Button negative><Icon name="trash"></Icon></Button>
+              <Button onClick={
+                (e) => { 
+                  onOpenDeleteModal(e) 
+                }} negative>
+                <Icon name="trash"></Icon>
+              </Button>
             </Button.Group>
           </Grid.Column>
         </Grid>

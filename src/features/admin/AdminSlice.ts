@@ -1,24 +1,73 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { AdminInitialState } from "./AdminModels";
-import { addCategory } from "./AdminAPI";
+import {
+  createSlice,
+  isPending,
+  isRejectedWithValue,
+  isFulfilled,
+} from "@reduxjs/toolkit";
+import {
+  addCategory,
+  addCategoryItem,
+  deleteCategory,
+  deleteCategoryItem,
+} from "./AdminAPI";
 
 export const adminSlice = createSlice({
   name: "admin",
   initialState: {
     loading: false,
+    modalData: {
+      isOpen: false,
+      type: "category",
+      action: "delete",
+      data: {},
+    },
   },
-  reducers: {},
-  extraReducers: {
-    [addCategory.pending as any]: (state: AdminInitialState) => {
-      state.loading = true;
+  reducers: {
+    setModalData: (state, action) => {
+      state.modalData = {
+        ...state.modalData,
+        ...action.payload,
+      };
     },
-    [addCategory.fulfilled as any]: (state: AdminInitialState, { payload }) => {
-      state.loading = false;
-    },
-    [addCategory.rejected as any]: (state) => {
-      state.loading = false;
-    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addMatcher(
+        isPending(
+          addCategory,
+          addCategoryItem,
+          deleteCategory,
+          deleteCategoryItem
+        ),
+        (state, _) => {
+          state.loading = true;
+        }
+      )
+      .addMatcher(
+        isRejectedWithValue(
+          addCategory,
+          addCategoryItem,
+          deleteCategory,
+          deleteCategoryItem
+        ),
+        (state, _) => {
+          state.loading = false;
+        }
+      )
+      .addMatcher(
+        isFulfilled(
+          addCategory,
+          addCategoryItem,
+          deleteCategory,
+          deleteCategoryItem
+        ),
+        (state, _) => {
+          state.loading = false;
+        }
+      );
   },
 });
+
+export const { setModalData } = adminSlice.actions;
 
 export default adminSlice.reducer;

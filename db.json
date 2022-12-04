@@ -4,25 +4,6 @@
       "id": "d209c650-7413-11ed-bf45-130df27bdbb5",
       "name": "Home Food",
       "description": "Delicious Category",
-      "items": [
-        {
-          "id": "725b4f90-7417-11ed-bc0f-7330bdaf254f",
-          "name": "Home Meat",
-          "price": 500,
-          "description": "This is the best"
-        }
-      ]
-    },
-    {
-      "id": "cc250be0-73dd-11ed-bf45-130df27bdbb5",
-      "name": "Grill",
-      "description": "This is new category as well",
-      "items": []
-    },
-    {
-      "id": "9f5bbeb0-73dd-11ed-bf45-130df27bdbb5",
-      "name": "Desserts",
-      "description": "This is new category",
       "items": []
     },
     {

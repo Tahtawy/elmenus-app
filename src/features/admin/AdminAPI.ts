@@ -1,6 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { httpClient } from "../core/HttpClient";
-import { AddCategoryAPIBody, AddCategoryItemAPIBody } from "./AdminModels";
+import {
+  AddCategoryAPIBody,
+  AddCategoryItemAPIBody,
+  AdminDeleteCategoryParams,
+  AdminDeleteCategoryItemParams,
+} from "./AdminModels";
 
 export const addCategory = createAsyncThunk<any, AddCategoryAPIBody>(
   "admin/addCategory",
@@ -17,3 +22,21 @@ export const addCategoryItem = createAsyncThunk<any, AddCategoryItemAPIBody>(
     return response.data;
   }
 );
+
+export const deleteCategory = createAsyncThunk<any, AdminDeleteCategoryParams>(
+  "admin/deleteCategory",
+  async (categoryId) => {
+    const response = await httpClient.delete(`/categories/${categoryId}`);
+    return response.data;
+  }
+);
+
+export const deleteCategoryItem = createAsyncThunk<
+  any,
+  AdminDeleteCategoryItemParams
+>("admin/deleteCategoryItem", async (ids) => {
+  const response = await httpClient.delete(
+    `/categories/${ids.categoryId}/items/${ids.itemId}`
+  );
+  return response.data;
+});

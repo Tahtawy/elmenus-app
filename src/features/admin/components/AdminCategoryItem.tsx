@@ -16,8 +16,9 @@ export const AdminCategoryItem: FC<CategoryAccordionProps> = ({
   return (
     <>
       <AdminAccordationItem
-        for="category"
+        type="category"
         index={index}
+        categoryId={category.id}
         name={category.name}
         description={category.description}>
         
@@ -35,8 +36,10 @@ export const AdminCategoryItem: FC<CategoryAccordionProps> = ({
               return (
                 <Accordion key={item.id} styled fluid>
                   <AdminAccordationItem
-                    for="item"
+                    type="item"
                     index={index}
+                    categoryId={category.id}
+                    itemId={item.id}
                     name={item.name}
                     price={item.price}
                     description={item.description} />
