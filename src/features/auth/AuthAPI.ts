@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { httpClient } from "../core/httpClient";
+import { httpClient } from "../core/HttpClient";
 import { LoginAPIBody, LoginAPIResponse } from "./AuthModels";
 
 export const login = createAsyncThunk<LoginAPIResponse, LoginAPIBody>(

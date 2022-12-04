@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { AuthInitialState } from "./AuthModels";
 import { login } from "./AuthAPI";
+import defineAbilitiesFor from "../core/utils/defineRoles";
 
 export const authSlice = createSlice({
   name: "auth",
