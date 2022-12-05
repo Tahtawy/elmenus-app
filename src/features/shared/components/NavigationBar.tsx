@@ -42,7 +42,7 @@ export const NavigationBar: FC = () => {
             </Menu.Item>
           ) : (
             <Menu.Item name='login'>
-              <Button color="red">
+              <Button className="loginBtn" color="red">
                 <Link to="/auth/login">Login</Link>
               </Button>
             </Menu.Item>

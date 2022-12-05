@@ -1,13 +1,15 @@
-import { configureStore } from "@reduxjs/toolkit";
-import sharedSlice from "../shared/SharedSlice";
+import menuSlice from "../menu/MenuSlice";
 import authReducer from "../auth/AuthSlice";
 import adminSlice from "../admin/AdminSlice";
+import sharedSlice from "../shared/SharedSlice";
+import { configureStore } from "@reduxjs/toolkit";
 
 const Store = configureStore({
   reducer: {
     auth: authReducer,
     admin: adminSlice,
     shared: sharedSlice,
+    menu: menuSlice,
   },
 });
 

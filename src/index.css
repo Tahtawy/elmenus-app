@@ -9,3 +9,13 @@
   padding: 0.5em;
   font-weight: 600;
 }
+.menu_wrapper {
+  margin-top: 50px;
+}
+.loginBtn {
+  padding: 0 !important;
+}
+.loginBtn a {
+  display: inline-block;
+  padding: .78571429em 1.5em .78571429em;
+}
