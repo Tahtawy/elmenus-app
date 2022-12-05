@@ -1,5 +1,5 @@
 import { FC, ReactNode } from "react";
-import Can from "../abilityContext";
+import Can from "../AbilityContext";
 
 type ProtectedRouteProps = {
   action: string;
