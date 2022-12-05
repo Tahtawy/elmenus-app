@@ -1,8 +1,14 @@
 import { Admin } from "./pages/Admin";
+import { ProtectedRoute } from "../core/components/ProtectedRoute";
 
 export const adminRoutes = [
   {
     path: "/admin",
-    element: <Admin />,
+    element: (
+      <ProtectedRoute action="view" subject="adminPage">
+        <Admin />
+      </ProtectedRoute>
+    ),
+    
   },
 ];

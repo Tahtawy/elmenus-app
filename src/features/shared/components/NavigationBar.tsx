@@ -1,17 +1,20 @@
 import { FC } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Can from "../../core/AbilityContext";
 import { Menu, Button } from 'semantic-ui-react';
-import { setAuthStatus, setPermissions } from '../../auth/AuthSlice';
 import { useAppSelector, useAppDispatch } from '../hooks';
+import { setAuthStatus, setPermissions } from '../../auth/AuthSlice';
+
 
 export const NavigationBar: FC = () => {
+  const navigate = useNavigate();
   const { isLoggedin } = useAppSelector((state: any) => state.auth);
   const dispatch = useAppDispatch();
 
   const logout = () => {
     dispatch(setAuthStatus(false));
     dispatch(setPermissions([]));
+    navigate('/menu');
   }
 
   return (
