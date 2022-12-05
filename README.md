@@ -54,14 +54,14 @@ I used **Grouping by features or routes** structure for this project as below:
 
 ![structure](https://user-images.githubusercontent.com/12024135/205556507-c8f26070-8962-4aeb-ac8f-2fb3ac40709b.png)
 
-### Features Folder
+### `Features Folder`
 This constains app features like admin and menu.
 Each feature contains it's pages, components, state, route, and any feature related files.
 
-### Core Folder
+### `Core Folder`
 This for core parts of the app like authentication, authorization, store, ...
 
-### Shared Folder
+### `Shared Folder`
 This for shared components, utils, hooks, and any thing need to be shared and **is not core** in the app.
 
 ## Learn More
