@@ -46,14 +46,22 @@ const AdminAccordationItem: FC<AdminAccordationItemProps> & CompoundComponetsPro
     setActiveIndex(newIndex);
   };
 
-  const onOpenDeleteModal = (e: any) => {
+  const onOpenModal = (e: any, action: string) => {
     e.stopPropagation();
-    console.log(categoryId);
-    console.log(itemId);
+    let data: any = {};
+    if (action === 'delete')
+      data = { categoryId, itemId };
+    else {
+      if (type === 'category')
+        data = { categoryId, itemId, formData: { name, description } };
+      else
+        data = { categoryId, itemId, formData: { name, description, price } };
+    }
+
     dispatch(setModalData({
       isOpen: true,
-      action: 'delete',
-      data: {categoryId, itemId},
+      action,
+      data,
       type
     }))
   }
@@ -72,11 +80,14 @@ const AdminAccordationItem: FC<AdminAccordationItemProps> & CompoundComponetsPro
           </Grid.Column>
           <Grid.Column floated='right'>
             <Button.Group floated="right">
-              <Button positive><Icon name="pencil"></Icon></Button>
+              <Button onClick={
+                (e) => { 
+                  onOpenModal(e, 'edit') 
+                }} positive><Icon name="pencil"></Icon></Button>
               <Button.Or />
               <Button onClick={
                 (e) => { 
-                  onOpenDeleteModal(e) 
+                  onOpenModal(e, 'delete') 
                 }} negative>
                 <Icon name="trash"></Icon>
               </Button>

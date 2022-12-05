@@ -4,7 +4,9 @@ import {
   AddCategoryAPIBody,
   AddCategoryItemAPIBody,
   AdminDeleteCategoryParams,
+  AdminEditCategoryAPIParams,
   AdminDeleteCategoryItemParams,
+  AdminEditCategoryItemAPIParams,
 } from "./AdminModels";
 
 export const addCategory = createAsyncThunk<any, AddCategoryAPIBody>(
@@ -37,6 +39,28 @@ export const deleteCategoryItem = createAsyncThunk<
 >("admin/deleteCategoryItem", async (ids) => {
   const response = await httpClient.delete(
     `/categories/${ids.categoryId}/items/${ids.itemId}`
+  );
+  return response.data;
+});
+
+export const editCategory = createAsyncThunk<any, AdminEditCategoryAPIParams>(
+  "admin/editCategory",
+  async (params: AdminEditCategoryAPIParams) => {
+    const response = await httpClient.patch(
+      `/categories/${params.categoryId}`,
+      params.data
+    );
+    return response.data;
+  }
+);
+
+export const editCategoryItem = createAsyncThunk<
+  any,
+  AdminEditCategoryItemAPIParams
+>("admin/editCategoryItem", async (params: AdminEditCategoryItemAPIParams) => {
+  const response = await httpClient.patch(
+    `/categories/${params.categoryId}/items/${params.itemId}`,
+    params.data
   );
   return response.data;
 });

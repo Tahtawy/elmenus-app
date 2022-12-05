@@ -1,9 +1,11 @@
 import { FC } from "react";
-import { Container, Grid } from 'semantic-ui-react';
 import { useAppSelector } from "../../shared/hooks";
-import { AdminModal } from "../components/AdminModal";
+import { initialAddCategory } from "../AdminConstants";
+import { Container, Grid, Header } from 'semantic-ui-react';
 import {  AdminMenuData } from '../components/AdminMenuData';
-import {  AdminAddCategory } from '../components/AdminAddCategory';
+import { AdminEditModal } from "../components/AdminEditModal";
+import { AdminDeleteModal } from "../components/AdminDeleteModal";
+import {  AdminCategoryForm } from '../components/AdminCategoryForm';
 
 export const Admin: FC = () => {
   const { modalData } = useAppSelector((state: any) => state.admin);
@@ -14,7 +16,10 @@ export const Admin: FC = () => {
         <Grid>
           <Grid.Row>
             <Grid.Column width={5}>
-              <AdminAddCategory />
+              <Header as='h2' color='teal'>
+                Add Category
+              </Header>
+              <AdminCategoryForm initialValue={initialAddCategory} mode="add" />
             </Grid.Column>
             <Grid.Column width={11}>
               <AdminMenuData />
@@ -23,10 +28,13 @@ export const Admin: FC = () => {
         </Grid>
       </Container>
 
-      <AdminModal
+      <AdminDeleteModal
         type={modalData.type}
-        action={modalData.action}
-        isOpen={modalData.isOpen} />
+        action={modalData.action} />
+      
+      <AdminEditModal
+        type={modalData.type}
+        action={modalData.action} />
     </>
   )
 }

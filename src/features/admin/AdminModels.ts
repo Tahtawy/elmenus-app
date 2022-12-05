@@ -3,20 +3,19 @@ export interface AddCategoryAPIBody {
   description: string;
 }
 
-export type AddCategoryItemFormValues = {
+export type CategoryItemFormValues = {
   name: string;
   price: number | string;
   description: string;
 };
 
-export type AddCategoryItemAPIBody = AddCategoryItemFormValues & {
+export type AddCategoryItemAPIBody = CategoryItemFormValues & {
   categoryId: string;
 };
 
 export type ModalData = {
-  isOpen: boolean;
   type: "category" | "item";
-  action: "delete" | "edit";
+  action: "delete" | "edit" | "close";
   data?: any;
 };
 
@@ -32,4 +31,15 @@ export interface AdminDeleteCategoryParams {
 export interface AdminDeleteCategoryItemParams {
   categoryId: string;
   itemId: string;
+}
+
+export interface AdminEditCategoryAPIParams {
+  categoryId: string;
+  data: AddCategoryAPIBody;
+}
+
+export interface AdminEditCategoryItemAPIParams {
+  categoryId: string;
+  itemId: string;
+  data: CategoryItemFormValues;
 }

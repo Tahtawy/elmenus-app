@@ -1,8 +1,9 @@
 import { FC } from "react";
+import { initialAddItem } from '../AdminConstants';
 import { Accordion, Header } from "semantic-ui-react";
 import AdminAccordationItem from "./AdminAccordationItem";
 import { Category, Item } from '../../shared/SharedModels';
-import { AdminAddCategoryItem } from "./AdminAddCategoryItem";
+import { AdminCategoryItemForm } from "./AdminCategoryItemForm";
 
 type CategoryAccordionProps = {
   category: Category;
@@ -23,9 +24,12 @@ export const AdminCategoryItem: FC<CategoryAccordionProps> = ({
         description={category.description}>
         
         <AdminAccordationItem.AdditionalContent>
-          <AdminAddCategoryItem categoryId={category.id} />
+          <AdminCategoryItemForm
+            mode="add"
+            categoryId={category.id}
+            initialValue={initialAddItem} />
           {
-            category.items.length && (
+            Boolean(category.items.length) && (
               <Header as="h3">
                 Menu items
               </Header>

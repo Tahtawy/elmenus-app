@@ -1,10 +1,17 @@
 {
   "categories": [
     {
-      "id": "d209c650-7413-11ed-bf45-130df27bdbb5",
-      "name": "Home Food",
-      "description": "Delicious Category",
-      "items": []
+      "id": "43499d60-7435-11ed-bc0f-7330bdaf254f",
+      "name": "Desserts",
+      "description": "Lorem Ipsum",
+      "items": [
+        {
+          "id": "a8ff1280-7439-11ed-bc0f-7330bdaf254f",
+          "name": "Candy",
+          "price": 51,
+          "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+        }
+      ]
     },
     {
       "id": "80877",

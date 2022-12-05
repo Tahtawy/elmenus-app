@@ -6,8 +6,10 @@ import {
 } from "@reduxjs/toolkit";
 import {
   addCategory,
-  addCategoryItem,
+  editCategory,
   deleteCategory,
+  addCategoryItem,
+  editCategoryItem,
   deleteCategoryItem,
 } from "./AdminAPI";
 
@@ -16,9 +18,8 @@ export const adminSlice = createSlice({
   initialState: {
     loading: false,
     modalData: {
-      isOpen: false,
-      type: "category",
-      action: "delete",
+      type: "none",
+      action: "close",
       data: {},
     },
   },
@@ -35,8 +36,10 @@ export const adminSlice = createSlice({
       .addMatcher(
         isPending(
           addCategory,
-          addCategoryItem,
+          editCategory,
           deleteCategory,
+          addCategoryItem,
+          editCategoryItem,
           deleteCategoryItem
         ),
         (state, _) => {
@@ -46,8 +49,10 @@ export const adminSlice = createSlice({
       .addMatcher(
         isRejectedWithValue(
           addCategory,
-          addCategoryItem,
+          editCategory,
           deleteCategory,
+          addCategoryItem,
+          editCategoryItem,
           deleteCategoryItem
         ),
         (state, _) => {
@@ -57,8 +62,10 @@ export const adminSlice = createSlice({
       .addMatcher(
         isFulfilled(
           addCategory,
-          addCategoryItem,
+          editCategory,
           deleteCategory,
+          addCategoryItem,
+          editCategoryItem,
           deleteCategoryItem
         ),
         (state, _) => {

@@ -1,16 +1,28 @@
 import { FC } from 'react';
-import { listCategory } from '../../shared/SharedAPI';
-import { addCategory } from '../AdminAPI';
+import { setModalData } from '../AdminSlice';
 import { Formik, ErrorMessage } from 'formik';
 import { AddCategoryAPIBody } from '../AdminModels';
+import { listCategory } from '../../shared/SharedAPI';
 import { initialAddCategory } from '../AdminConstants';
-import { useAppDispatch } from '../../shared/hooks';
-import { Button, Form, Header, Divider, Segment } from 'semantic-ui-react';
+import { addCategory, editCategory } from '../AdminAPI';
+import { Button, Form, Divider, Segment } from 'semantic-ui-react';
+import { useAppDispatch, useAppSelector } from '../../shared/hooks';
 
-export const AdminAddCategory: FC = () => {
+type AdminCategoryFormProps = {
+  initialValue: AddCategoryAPIBody;
+  mode: 'add' | 'edit';
+  id?: string;
+}
+
+export const AdminCategoryForm: FC<AdminCategoryFormProps> = ({
+  initialValue,
+  mode,
+  id = ''
+}) => {
   const dispatch = useAppDispatch();
+  const { modalData } = useAppSelector((state: any) => state.admin);
 
-  const validateAddCategory = (values: AddCategoryAPIBody) => {
+  const validateCategoryForm = (values: AddCategoryAPIBody) => {
     const errors: AddCategoryAPIBody = {} as AddCategoryAPIBody;
     if (!values.name) {
       errors.name = 'Name is required';
@@ -20,11 +32,19 @@ export const AdminAddCategory: FC = () => {
     }
     return errors;
   }
-
-  const onSubmitAddCategory = async (values: AddCategoryAPIBody, { resetForm }: any) => {
+  
+  const onSubmitCategoryForm = async (values: AddCategoryAPIBody, { resetForm }: any) => {
     try {
-      await dispatch(addCategory(values));
-      resetForm({ values: initialAddCategory });
+      if (mode === 'add') {
+        await dispatch(addCategory(values));
+        resetForm({ values: initialAddCategory });
+      } else {
+        await dispatch(editCategory({
+          categoryId: modalData.data.categoryId,
+          data: values
+        }));
+        dispatch(setModalData({ action: 'close' }))
+      }
       await dispatch(listCategory());
     } catch(error) {
       console.log(error);
@@ -33,16 +53,13 @@ export const AdminAddCategory: FC = () => {
 
   return (
     <>
-      <Header as='h2' color='teal'>
-        Add Category
-      </Header>
       <Formik
-        initialValues={initialAddCategory}
-        validate={validateAddCategory}
-        onSubmit={onSubmitAddCategory}>
+        validateOnMount={true}
+        initialValues={initialValue}
+        validate={validateCategoryForm}
+        onSubmit={onSubmitCategoryForm}>
       {({
         values,
-        dirty,
         isValid,
         handleChange,
         handleBlur,
@@ -77,8 +94,8 @@ export const AdminAddCategory: FC = () => {
             
             <Divider />
 
-            <Button type="submit" disabled={!(isValid && dirty)}>
-              Save
+            <Button type="submit" disabled={!(isValid)}>
+              { mode === 'add' ? 'Save' : 'Update' }
             </Button>
           </Segment>
         </Form>

@@ -6,40 +6,43 @@ import { listCategory } from "../../shared/SharedAPI";
 import { deleteCategory, deleteCategoryItem } from "../AdminAPI";
 import { useAppDispatch, useAppSelector } from "../../shared/hooks";
 
-export const AdminModal: FC<ModalData> = ({ isOpen, type, action, data }) => {
+export const AdminDeleteModal: FC<ModalData> = ({ type, action }) => {
   const dispatch = useAppDispatch();
   const { modalData } = useAppSelector((state: any) => state.admin);
 
+  const close = () => {
+    dispatch(setModalData({ action: 'close' }));
+  }
+
   const updateData = async () => {
     await dispatch(listCategory());
-    dispatch(setModalData({ isOpen: false }))
+    dispatch(setModalData({ action: 'close' }));
   }
 
   const onConfirm = async () => {
-    if (modalData.type === 'category' && modalData.action === 'delete') {
+    if (modalData.type === 'category') {
       await dispatch(deleteCategory(modalData.data.categoryId))
-      updateData();
-    } else if (modalData.type === 'item' && modalData.action === 'delete') {
+    } else if (modalData.type === 'item') {
       await dispatch(deleteCategoryItem({ 
         categoryId: modalData.data.categoryId,
         itemId: modalData.data.itemId 
       }));
-      updateData();
     }
+    await updateData();
   }
 
   return (
     <Modal
       size="mini"
-      open={isOpen}
-      onClose={() => { dispatch(setModalData({ isOpen: false })) }}
+      open={action === 'delete'}
+      onClose={close}
     >
       <Modal.Header>Delete Your { type }</Modal.Header>
       <Modal.Content>
         <p>Are you sure you want to delete this { type }</p>
       </Modal.Content>
       <Modal.Actions>
-        <Button negative onClick={() => { dispatch(setModalData({ isOpen: false })) }}>
+        <Button negative onClick={close}>
           No
         </Button>
         <Button positive onClick={onConfirm}>
