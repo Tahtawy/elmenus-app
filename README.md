@@ -7,12 +7,13 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 In the project directory, you can run:
 
 ### `npm install`
-Installs dependences that project needs.
-
-**Note: The used node version is v16.13.2** 
+Installs dependences that project needs. **Note: The used node version is v16.13.2** 
 
 ### `npm run start:server`
-Runs the server at http://localhost:3000.
+Runs the node server at http://localhost:3000.
+
+I used simple node liberaries like **lowdb** and **json-server**,
+to simulate backend secnarios
 
 ### `npm start`
 
@@ -46,6 +47,22 @@ If you aren’t satisfied with the build tool and configuration choices, you can
 Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Project Structure
+
+I used **Grouping by features or routes** structure for this project as below:
+
+![structure](https://user-images.githubusercontent.com/12024135/205556507-c8f26070-8962-4aeb-ac8f-2fb3ac40709b.png)
+
+### Features Folder
+This constains app features like admin and menu.
+Each feature contains it's pages, components, state, route, and any feature related files.
+
+### Core Folder
+This for core parts of the app like authentication, authorization, store, ...
+
+### Shared Folder
+This for shared components, utils, hooks, and any thing need to be shared and **is not core** in the app.
 
 ## Learn More
 
