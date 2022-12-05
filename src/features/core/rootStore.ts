@@ -4,7 +4,7 @@ import adminSlice from "../admin/AdminSlice";
 import sharedSlice from "../shared/SharedSlice";
 import { configureStore } from "@reduxjs/toolkit";
 
-const Store = configureStore({
+const rootStore = configureStore({
   reducer: {
     auth: authReducer,
     admin: adminSlice,
@@ -14,8 +14,8 @@ const Store = configureStore({
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
-export type RootState = ReturnType<typeof Store.getState>;
+export type RootState = ReturnType<typeof rootStore.getState>;
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
-export type AppDispatch = typeof Store.dispatch;
+export type AppDispatch = typeof rootStore.dispatch;
 
-export default Store;
+export default rootStore;

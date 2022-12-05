@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
-import Store from './features/core/Store';
+import rootStore from './features/core/rootStore';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
@@ -12,7 +12,7 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <Provider store={Store}>
+  <Provider store={rootStore}>
     <App />
   </Provider>
 );
