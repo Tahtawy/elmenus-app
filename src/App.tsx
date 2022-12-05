@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { router } from './features/core/Router';
+import { router } from './features/core/router';
 import { RouterProvider } from "react-router-dom";
-import { AbilityContext } from './features/core/AbilityContext';
+import { AbilityContext } from './features/core/abilityContext';
 import { buildAbilityFor, AppAbility } from './features/shared/utils';
 import { useAppDispatch, useAppSelector } from './features/shared/hooks';
 import { setAuthStatus, setPermissions } from './features/auth/AuthSlice';

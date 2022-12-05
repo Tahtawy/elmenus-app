@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { httpClient } from "../core/HttpClient";
+import { httpClient } from "../core/httpClient";
 
 export const listCategory = createAsyncThunk(
   "shared/listCategory",

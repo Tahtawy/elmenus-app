@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Can from "../../core/AbilityContext";
+import Can from "../../core/abilityContext";
 import { Menu, Button } from 'semantic-ui-react';
 import { useAppSelector, useAppDispatch } from '../hooks';
 import { setAuthStatus, setPermissions } from '../../auth/AuthSlice';
