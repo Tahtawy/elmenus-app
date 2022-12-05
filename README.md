@@ -6,6 +6,11 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
+### `npm install`
+Installs dependences that project needs.
+
+**Note: The used node version is v16.13.2** 
+
 ### `npm run start:server`
 Runs the server at http://localhost:3000.
 
