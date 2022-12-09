@@ -10,7 +10,7 @@ export const ItemsList: FC<ItemsListProps> = ({ items }) => {
   return (
     <Item.Group divided>
       {
-        items ?
+        items ? (
           items.map((item: ItemModel) => {
             return (
               <Item key={item.id}>
@@ -30,6 +30,7 @@ export const ItemsList: FC<ItemsListProps> = ({ items }) => {
               </Item>
             )
           })
+        )
         : (
           <Message>
             <p>

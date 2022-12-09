@@ -2,22 +2,24 @@ import { FC } from "react";
 import { setModalData } from "../AdminSlice";
 import { Formik, ErrorMessage } from 'formik';
 import { initialAddItem } from '../AdminConstants';
-import { listCategory } from '../../shared/SharedAPI';
 import { CategoryItemFormValues } from '../AdminModels';
-import { addCategoryItem, editCategoryItem } from '../AdminAPI';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks';
+import { addCategoryItemAPI, editCategoryItemAPI } from '../AdminAPI';
+import { addCategoryItem, editCategoryItem } from "../../shared/SharedSlice";
 import { Button, Grid, Form, Header, Divider, Segment } from 'semantic-ui-react';
 
 type AdminCategoryItemFormProps = {
   initialValue: CategoryItemFormValues;
   mode: 'add' | 'edit';
+  categoryIndex?: number;
   categoryId?: string;
 }
 
 export const AdminCategoryItemForm: FC<AdminCategoryItemFormProps> = ({
   initialValue,
   mode,
-  categoryId = ''
+  categoryIndex,
+  categoryId = '',
 }) => {
   const dispatch = useAppDispatch();
   const { modalData } = useAppSelector((state: any) => state.admin);
@@ -38,21 +40,25 @@ export const AdminCategoryItemForm: FC<AdminCategoryItemFormProps> = ({
 
   const onSubmitCategoryItemForm = async (values: CategoryItemFormValues, { resetForm }: any) => {
     try {
+      let response: any;
       if (mode === 'add') {
-        await dispatch(addCategoryItem({
+        response = await dispatch(addCategoryItemAPI({
           ...values,
           categoryId
         }));
+        dispatch(addCategoryItem({ parentIndex: categoryIndex, data: response.payload }))
         resetForm({ values: initialAddItem });
       } else {
-        await dispatch(editCategoryItem({
+        response = await dispatch(editCategoryItemAPI({
           categoryId: modalData.data.categoryId,
           itemId: modalData.data.itemId,
           data: values
         }));
+        const { index, parentIndex } = modalData.data;
+        dispatch(editCategoryItem({ index, parentIndex, data: response.payload }));
         dispatch(setModalData({ action: 'close' }))
       }
-      await dispatch(listCategory());
+      // await dispatch(listCategory());
     } catch(error) {
       console.log(error);
     }

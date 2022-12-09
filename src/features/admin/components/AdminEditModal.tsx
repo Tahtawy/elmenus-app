@@ -6,7 +6,7 @@ import { AdminCategoryItemForm } from "./AdminCategoryItemForm";
 import { Modal, Grid, Icon, Button } from 'semantic-ui-react';
 import { useAppDispatch, useAppSelector } from "../../shared/hooks";
 
-export const AdminEditModal: FC<ModalData> = ({ type, action, data }) => {
+export const AdminEditModal: FC<ModalData> = ({ type, action }) => {
   const dispatch = useAppDispatch();
   const { modalData } = useAppSelector((state: any) => state.admin);
 
@@ -35,7 +35,7 @@ export const AdminEditModal: FC<ModalData> = ({ type, action, data }) => {
       <Modal.Content>
         {
           modalData.type === 'category' ? (
-            <AdminCategoryForm initialValue={modalData.data.formData} mode="edit" />
+            <AdminCategoryForm />
           ): (
             <AdminCategoryItemForm initialValue={modalData.data.formData} mode="edit" />
           )

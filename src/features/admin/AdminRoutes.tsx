@@ -9,6 +9,6 @@ export const adminRoutes = [
         <Admin />
       </ProtectedRoute>
     ),
-    
+    exact: true,
   },
 ];

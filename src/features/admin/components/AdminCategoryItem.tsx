@@ -26,6 +26,7 @@ export const AdminCategoryItem: FC<CategoryAccordionProps> = ({
         <AdminAccordationItem.AdditionalContent>
           <AdminCategoryItemForm
             mode="add"
+            categoryIndex={index}
             categoryId={category.id}
             initialValue={initialAddItem} />
           {
@@ -36,12 +37,13 @@ export const AdminCategoryItem: FC<CategoryAccordionProps> = ({
             )
           }
           {
-            category.items.map((item: Item, index: number) => {
+            category.items.map((item: Item, itemIndex: number) => {
               return (
                 <Accordion key={item.id} styled fluid>
                   <AdminAccordationItem
                     type="item"
-                    index={index}
+                    index={itemIndex}
+                    parentIndex={index}
                     categoryId={category.id}
                     itemId={item.id}
                     name={item.name}

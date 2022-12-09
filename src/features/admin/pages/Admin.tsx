@@ -19,7 +19,7 @@ export const Admin: FC = () => {
               <Header as='h2' color='teal'>
                 Add Category
               </Header>
-              <AdminCategoryForm initialValue={initialAddCategory} mode="add" />
+              <AdminCategoryForm />
             </Grid.Column>
             <Grid.Column width={11}>
               <AdminMenuData />
@@ -28,13 +28,17 @@ export const Admin: FC = () => {
         </Grid>
       </Container>
 
-      <AdminDeleteModal
-        type={modalData.type}
-        action={modalData.action} />
-      
-      <AdminEditModal
-        type={modalData.type}
-        action={modalData.action} />
+      {
+        modalData.action === 'delete' && (
+          <AdminDeleteModal type={modalData.type} action={modalData.action} />
+        )
+      }
+
+      {
+        modalData.action === 'edit' && (
+          <AdminEditModal type={modalData.type} action={modalData.action} />
+        )
+      }
     </>
   )
 }

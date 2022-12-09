@@ -69,28 +69,29 @@ server.post('/categories', function (req, res) {
   const { body } = req;
 
   if (body) {
+    body.id = uuidv1();
     if (!body.items)
       body.items = [];
 
+    
     db.get('categories').unshift({
-      id: uuidv1(),
       ...body,
     }).write();
-    res.sendStatus(200);
+    res.status(200).json(body);
   } else {
     res.sendStatus(404);
   }
 });
 server.post('/items', function (req, res) {
   const { body } = req;
-  const { categoryId, ...rest } = body;
 
   if (body) {
+    body.id = uuidv1();
+    const { categoryId, ...rest } = body;
     db.get('categories').find({ id: categoryId }).get('items').unshift({
-      id: uuidv1(),
       ...rest
     }).write();
-    res.sendStatus(200);
+    res.status(200).json(body);
   } else {
     res.sendStatus(404);
   }
@@ -127,7 +128,7 @@ server.patch('/categories/:categoryId', function (req, res) {
 
   if (body) {
     db.get('categories').find({ id: categoryId }).assign(body).write();
-    res.sendStatus(200);
+    res.status(200).json(body);
   } else {
     res.sendStatus(404);
   }
@@ -143,7 +144,7 @@ server.patch('/categories/:categoryId/items/:itemId', function (req, res) {
       .assign(body)
       .write();
 
-    res.sendStatus(200);
+      res.status(200).json(body);
   } else {
     res.sendStatus(404);
   }

@@ -5,12 +5,12 @@ import {
   isFulfilled,
 } from "@reduxjs/toolkit";
 import {
-  addCategory,
-  editCategory,
-  deleteCategory,
-  addCategoryItem,
-  editCategoryItem,
-  deleteCategoryItem,
+  addCategoryAPI,
+  editCategoryAPI,
+  deleteCategoryAPI,
+  addCategoryItemAPI,
+  editCategoryItemAPI,
+  deleteCategoryItemAPI,
 } from "./AdminAPI";
 
 export const adminSlice = createSlice({
@@ -19,8 +19,10 @@ export const adminSlice = createSlice({
     loading: false,
     modalData: {
       type: "none",
-      action: "close",
-      data: {},
+      action: "add",
+      data: {
+        formData: { name: "", description: "" },
+      },
     },
   },
   reducers: {
@@ -35,12 +37,12 @@ export const adminSlice = createSlice({
     builder
       .addMatcher(
         isPending(
-          addCategory,
-          editCategory,
-          deleteCategory,
-          addCategoryItem,
-          editCategoryItem,
-          deleteCategoryItem
+          addCategoryAPI,
+          editCategoryAPI,
+          deleteCategoryAPI,
+          addCategoryItemAPI,
+          editCategoryItemAPI,
+          deleteCategoryItemAPI
         ),
         (state, _) => {
           state.loading = true;
@@ -48,12 +50,12 @@ export const adminSlice = createSlice({
       )
       .addMatcher(
         isRejectedWithValue(
-          addCategory,
-          editCategory,
-          deleteCategory,
-          addCategoryItem,
-          editCategoryItem,
-          deleteCategoryItem
+          addCategoryAPI,
+          editCategoryAPI,
+          deleteCategoryAPI,
+          addCategoryItemAPI,
+          editCategoryItemAPI,
+          deleteCategoryItemAPI
         ),
         (state, _) => {
           state.loading = false;
@@ -61,12 +63,12 @@ export const adminSlice = createSlice({
       )
       .addMatcher(
         isFulfilled(
-          addCategory,
-          editCategory,
-          deleteCategory,
-          addCategoryItem,
-          editCategoryItem,
-          deleteCategoryItem
+          addCategoryAPI,
+          editCategoryAPI,
+          deleteCategoryAPI,
+          addCategoryItemAPI,
+          editCategoryItemAPI,
+          deleteCategoryItemAPI
         ),
         (state, _) => {
           state.loading = false;

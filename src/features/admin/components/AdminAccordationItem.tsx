@@ -13,6 +13,7 @@ interface AdminAccordationItemProps {
   name: string;
   description: string;
   index: number;
+  parentIndex?: number;
   type: 'category' | 'item';
   children?: ReactNode;
   price?: number | null;
@@ -33,6 +34,7 @@ const AdminAccordationItem: FC<AdminAccordationItemProps> & CompoundComponetsPro
   description,
   type,
   index,
+  parentIndex,
   children,
   price = null
 }) => {
@@ -50,12 +52,18 @@ const AdminAccordationItem: FC<AdminAccordationItemProps> & CompoundComponetsPro
     e.stopPropagation();
     let data: any = {};
     if (action === 'delete')
-      data = { categoryId, itemId };
+      data = { categoryId, itemId, index, parentIndex };
     else {
       if (type === 'category')
-        data = { categoryId, itemId, formData: { name, description } };
+        data = { categoryId, itemId, index, formData: { name, description } };
       else
-        data = { categoryId, itemId, formData: { name, description, price } };
+        data = { 
+          categoryId,
+          itemId,
+          index,
+          parentIndex,
+          formData: { name, description, price } 
+        };
     }
 
     dispatch(setModalData({

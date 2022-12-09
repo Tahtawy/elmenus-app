@@ -2,9 +2,9 @@ import { FC } from "react";
 import { ModalData } from "../AdminModels";
 import { setModalData } from "../AdminSlice";
 import { Modal, Button } from 'semantic-ui-react';
-import { listCategory } from "../../shared/SharedAPI";
-import { deleteCategory, deleteCategoryItem } from "../AdminAPI";
 import { useAppDispatch, useAppSelector } from "../../shared/hooks";
+import { deleteCategoryAPI, deleteCategoryItemAPI } from "../AdminAPI";
+import { deleteCategories, deleteCategoryItem } from "../../shared/SharedSlice";
 
 export const AdminDeleteModal: FC<ModalData> = ({ type, action }) => {
   const dispatch = useAppDispatch();
@@ -14,21 +14,19 @@ export const AdminDeleteModal: FC<ModalData> = ({ type, action }) => {
     dispatch(setModalData({ action: 'close' }));
   }
 
-  const updateData = async () => {
-    await dispatch(listCategory());
-    dispatch(setModalData({ action: 'close' }));
-  }
-
   const onConfirm = async () => {
     if (modalData.type === 'category') {
-      await dispatch(deleteCategory(modalData.data.categoryId))
+      await dispatch(deleteCategoryAPI(modalData.data.categoryId));
+      dispatch(deleteCategories({ index: modalData.data.index }));
     } else if (modalData.type === 'item') {
-      await dispatch(deleteCategoryItem({ 
+      await dispatch(deleteCategoryItemAPI({ 
         categoryId: modalData.data.categoryId,
         itemId: modalData.data.itemId 
       }));
+      const { index, parentIndex } = modalData.data;
+      dispatch(deleteCategoryItem({ index, parentIndex }));
     }
-    await updateData();
+    dispatch(setModalData({ action: 'add' }));
   }
 
   return (
